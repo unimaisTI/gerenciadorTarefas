@@ -1,0 +1,38 @@
+# RNF-12: lint, checagem de tipos e testes (inclusive RLS e fluxo de chamados) a cada push.
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: unimais_hub
+        ports: ['5432:5432']
+        options: >-
+          --health-cmd "pg_isready -U postgres" --health-interval 5s --health-timeout 5s --health-retries 10
+    env:
+      TEST_DATABASE_URL: postgres://hub_app:hub_app@localhost:5432/unimais_hub_test
+      TEST_DATABASE_ADMIN_URL: postgres://postgres:postgres@localhost:5432/unimais_hub_test
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Preparar papéis e banco de teste
+        run: PGPASSWORD=postgres psql -h localhost -U postgres -d unimais_hub -f docker/postgres/init.sql
+      - run: npm run lint
+      - run: npm run typecheck
+      - run: npm run db:check
+      - run: npm test
+      - run: npm run build

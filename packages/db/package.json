@@ -1,0 +1,29 @@
+{
+  "name": "@hub/db",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./migrate": "./src/migrate.ts",
+    "./seed": "./src/seed.ts"
+  },
+  "scripts": {
+    "generate": "drizzle-kit generate",
+    "migrate": "tsx src/cli.ts migrate",
+    "seed": "tsx src/cli.ts seed",
+    "check": "tsx src/check-sql.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@hub/shared": "^0.0.0",
+    "@node-rs/argon2": "^2.2.2",
+    "drizzle-orm": "^0.44.7",
+    "postgres": "^3.4.9"
+  },
+  "devDependencies": {
+    "@libpg-query/parser": "^17.6.10",
+    "drizzle-kit": "^0.31.11",
+    "tsx": "^4.23.15"
+  }
+}

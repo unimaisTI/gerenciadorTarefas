@@ -1,0 +1,369 @@
+@import 'tailwindcss';
+@import './design-system/tokens.css';
+
+/*
+ * Tailwind só conhece os tokens UNIMAIS: a paleta, as fontes, os raios e as sombras padrão
+ * do Tailwind são zerados para ninguém usar uma cor fora do design system por engano.
+ */
+@theme inline {
+  --color-*: initial;
+  --color-white: var(--white);
+  --color-black: var(--black);
+  --color-transparent: transparent;
+  --color-current: currentColor;
+
+  --color-navy-050: var(--navy-050);
+  --color-navy-100: var(--navy-100);
+  --color-navy-200: var(--navy-200);
+  --color-navy-300: var(--navy-300);
+  --color-navy-400: var(--navy-400);
+  --color-navy-500: var(--navy-500);
+  --color-navy-600: var(--navy-600);
+  --color-navy-700: var(--navy-700);
+  --color-navy-800: var(--navy-800);
+  --color-navy-900: var(--navy-900);
+
+  --color-red-050: var(--red-050);
+  --color-red-100: var(--red-100);
+  --color-red-200: var(--red-200);
+  --color-red-300: var(--red-300);
+  --color-red-400: var(--red-400);
+  --color-red-500: var(--red-500);
+  --color-red-600: var(--red-600);
+  --color-red-700: var(--red-700);
+  --color-red-800: var(--red-800);
+
+  --color-gray-050: var(--gray-050);
+  --color-gray-100: var(--gray-100);
+  --color-gray-200: var(--gray-200);
+  --color-gray-300: var(--gray-300);
+  --color-gray-400: var(--gray-400);
+  --color-gray-500: var(--gray-500);
+  --color-gray-600: var(--gray-600);
+  --color-gray-700: var(--gray-700);
+  --color-gray-800: var(--gray-800);
+
+  --color-success: var(--success);
+  --color-success-050: var(--success-050);
+  --color-warning: var(--warning);
+  --color-warning-050: var(--warning-050);
+  --color-warning-ink: var(--warning-ink);
+  --color-danger: var(--danger);
+  --color-danger-050: var(--danger-050);
+  --color-info: var(--info);
+  --color-info-050: var(--info-050);
+
+  --color-strong: var(--text-strong);
+  --color-body: var(--text-body);
+  --color-muted: var(--text-muted);
+  --color-faint: var(--text-faint);
+  --color-page: var(--surface-page);
+  --color-card: var(--surface-card);
+  --color-sunken: var(--surface-sunken);
+  --color-inverse: var(--surface-inverse);
+  --color-brand: var(--surface-brand);
+  --color-accent: var(--surface-accent);
+  --color-subtle: var(--border-subtle);
+  --color-strong-border: var(--border-strong);
+
+  --color-dept-navy: var(--dept-navy);
+  --color-dept-red: var(--dept-red);
+  --color-dept-indigo: var(--dept-indigo);
+  --color-dept-green: var(--dept-green);
+  --color-dept-amber: var(--dept-amber);
+  --color-dept-slate: var(--dept-slate);
+  --color-dept-wine: var(--dept-wine);
+  --color-dept-teal: var(--dept-teal);
+
+  /* Nomes do Tailwind diferentes dos tokens para não gerar variável circular. */
+  --font-*: initial;
+  --font-title: var(--font-display);
+  --font-sans: var(--font-body);
+  --font-code: var(--font-mono);
+
+  --text-*: initial;
+  --text-h3: var(--fs-h3);
+  --text-h4: var(--fs-h4);
+  --text-lead: var(--fs-lead);
+  --text-lg: var(--fs-body-lg);
+  --text-base: var(--fs-body);
+  --text-button: var(--fs-button);
+  --text-sm: var(--fs-sm);
+  --text-xs: var(--fs-xs);
+  --text-2xs: var(--fs-2xs);
+
+  --spacing-sidebar: var(--sidebar-w);
+  --spacing-topbar: var(--topbar-h);
+}
+
+/* Tokens UNIMAIS com o mesmo nome no Tailwind: valor literal, emitido no :root. */
+@theme {
+  --radius-*: initial;
+  --radius-xs: 5px;
+  --radius-sm: 10px;
+  --radius-md: 20px;
+  --radius-lg: 53px;
+  --radius-pill: 200px;
+
+  --shadow-*: initial;
+  --shadow-sm: 0 4px 4px 0 rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+  --shadow-cta: 4px 3px 6px 0 rgba(101, 101, 101, 0.41);
+  --shadow-lg: 0 12px 32px 0 rgba(20, 23, 63, 0.18);
+
+  --ease-*: initial;
+  --ease-out: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.45, 0, 0.55, 1);
+}
+
+@layer base {
+  body {
+    margin: 0;
+    font-family: var(--font-body);
+    font-size: var(--fs-body);
+    line-height: 1.5;
+    color: var(--text-body);
+    background: var(--surface-page);
+    -webkit-font-smoothing: antialiased;
+  }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5 {
+    font-family: var(--font-display);
+    color: var(--text-strong);
+    letter-spacing: var(--tracking-tight);
+  }
+  a {
+    color: var(--text-link);
+    transition: color var(--dur-fast) var(--ease-out);
+  }
+  a:hover {
+    color: var(--text-link-hover);
+  }
+  *:focus-visible {
+    outline: 2px solid var(--focus-ring);
+    outline-offset: 2px;
+  }
+  ::selection {
+    background: var(--red-100);
+    color: var(--navy-900);
+  }
+}
+
+/* Texto rico (Tiptap): descrição e comentários. */
+@layer components {
+  .rich-text {
+    font-size: var(--fs-sm);
+    line-height: 1.6;
+    color: var(--text-body);
+    overflow-wrap: anywhere;
+  }
+  .rich-text > * + * {
+    margin-top: 0.5em;
+  }
+  .rich-text p {
+    margin: 0;
+  }
+  .rich-text h2,
+  .rich-text h3,
+  .rich-text h4 {
+    font-size: var(--fs-body-lg);
+    margin: 0.6em 0 0.2em;
+  }
+  .rich-text ul,
+  .rich-text ol {
+    margin: 0;
+    padding-left: 1.4em;
+  }
+  .rich-text ul[data-type='taskList'] {
+    list-style: none;
+    padding-left: 0.2em;
+  }
+  .rich-text ul[data-type='taskList'] li {
+    display: flex;
+    gap: 0.5em;
+    align-items: flex-start;
+  }
+  .rich-text ul[data-type='taskList'] li > label {
+    margin-top: 0.2em;
+  }
+  .rich-text ul[data-type='taskList'] input {
+    accent-color: var(--navy-700);
+  }
+  .rich-text li[data-checked='true'] > div {
+    color: var(--text-muted);
+    text-decoration: line-through;
+  }
+  .rich-text a {
+    text-decoration: underline;
+  }
+  .rich-text blockquote {
+    margin: 0;
+    padding-left: 0.8em;
+    border-left: 3px solid var(--navy-100);
+    color: var(--text-muted);
+  }
+  .rich-text code {
+    font-family: var(--font-mono);
+    background: var(--gray-100);
+    border-radius: var(--radius-xs);
+    padding: 0 4px;
+  }
+  .rich-text .mention {
+    background: var(--navy-050);
+    color: var(--navy-700);
+    border-radius: var(--radius-xs);
+    padding: 0 3px;
+    font-weight: 600;
+  }
+  .rich-text img.rich-image {
+    display: block;
+    max-width: 100%;
+    max-height: 420px;
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-sm);
+  }
+  .rich-text img.rich-image.ProseMirror-selectednode {
+    outline: 2px solid var(--focus-ring);
+  }
+  .mention-popup {
+    position: absolute;
+    z-index: 80;
+    min-width: 220px;
+    max-width: 300px;
+    padding: 4px;
+    background: var(--surface-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-sm);
+    box-shadow: var(--shadow-lg);
+    font-family: var(--font-body);
+  }
+  .mention-option {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1px;
+    padding: 6px 8px;
+    border: 0;
+    border-radius: var(--radius-xs);
+    background: transparent;
+    cursor: pointer;
+    text-align: left;
+    font-size: var(--fs-sm);
+    color: var(--text-strong);
+  }
+  .mention-option span {
+    font-size: var(--fs-xs);
+    color: var(--text-muted);
+  }
+  .mention-option[aria-selected='true'],
+  .mention-option:hover {
+    background: var(--navy-050);
+  }
+  .mention-empty {
+    padding: 8px;
+    font-size: var(--fs-sm);
+    color: var(--text-muted);
+  }
+  .rich-text p.is-editor-empty:first-child::before {
+    content: attr(data-placeholder);
+    color: var(--text-faint);
+    float: left;
+    height: 0;
+    pointer-events: none;
+  }
+
+  /* Calendário (FullCalendar) com os tokens UNIMAIS. */
+  .hub-calendar {
+    --fc-border-color: var(--border-subtle);
+    --fc-button-bg-color: var(--white);
+    --fc-button-border-color: var(--border-subtle);
+    --fc-button-text-color: var(--navy-700);
+    --fc-button-hover-bg-color: var(--navy-050);
+    --fc-button-hover-border-color: var(--border-subtle);
+    --fc-button-active-bg-color: var(--navy-700);
+    --fc-button-active-border-color: var(--navy-700);
+    --fc-today-bg-color: var(--navy-050);
+    --fc-page-bg-color: var(--white);
+    --fc-neutral-bg-color: var(--gray-050);
+    --fc-list-event-hover-bg-color: var(--navy-050);
+    font-size: var(--fs-sm);
+  }
+  .hub-calendar .fc .fc-button {
+    border-radius: var(--radius-pill);
+    font-weight: 600;
+    text-transform: none;
+    box-shadow: none;
+  }
+  .hub-calendar .fc .fc-button-primary:not(:disabled).fc-button-active {
+    color: var(--white);
+  }
+  .hub-calendar .fc .fc-toolbar-title {
+    font-family: var(--font-display);
+    font-size: var(--fs-lead);
+    color: var(--text-strong);
+    text-transform: capitalize;
+  }
+  .hub-calendar .fc-event {
+    border-radius: var(--radius-xs);
+    border-width: 1px;
+    padding: 1px 4px;
+    cursor: pointer;
+  }
+  .hub-calendar .cal-ticket_sent {
+    border-style: dashed;
+    border-width: 1.5px;
+  }
+  .hub-calendar .cal-overdue {
+    border-width: 2px;
+    box-shadow: inset 3px 0 0 var(--red-500);
+  }
+  .hub-calendar .cal-done {
+    opacity: 0.55;
+  }
+  .hub-calendar .cal-done .fc-event-title {
+    text-decoration: line-through;
+  }
+  .hub-calendar .cal-event .fc-event-title,
+  .hub-calendar .cal-event-holiday .fc-event-title {
+    font-weight: 600;
+  }
+}
+
+/* Exportar PDF (RF-10.15): só o conteúdo do painel, sem menus. */
+@media print {
+  nav,
+  header,
+  .print\:hidden {
+    display: none !important;
+  }
+  body {
+    background: var(--white);
+  }
+  main {
+    padding: 0 !important;
+  }
+  section {
+    break-inside: avoid;
+  }
+}
+
+@layer utilities {
+  .u-label {
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: var(--fs-xs);
+    letter-spacing: var(--tracking-label);
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+  .press {
+    transition: transform var(--dur-fast) var(--ease-out);
+  }
+  .press:active:not(:disabled) {
+    transform: scale(var(--press-scale));
+  }
+}

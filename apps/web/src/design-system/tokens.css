@@ -1,0 +1,132 @@
+/*
+ * UNIMAIS Design System: tokens transcritos de tokens/*.css do design system.
+ * Fonte da verdade das cores, tipos, espaços, raios, sombras e movimento.
+ * Não use hex solto nos componentes: use estes tokens (direto ou pelas classes do Tailwind).
+ */
+:root {
+  --font-display: 'Montserrat', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-body: 'Poppins', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+
+  /* Marca */
+  --red-500: #e11d23;
+  --navy-700: #2b2f84;
+  /* Escala vermelha */
+  --red-050: #fdeaeb;
+  --red-100: #f9b8bb;
+  --red-200: #f28086;
+  --red-300: #ea4a4f;
+  --red-400: #e5292f;
+  --red-600: #b8171c;
+  --red-700: #9d1418;
+  --red-800: #750f12;
+  /* Escala navy */
+  --navy-050: #eeeff9;
+  --navy-100: #d9dbf4;
+  --navy-200: #b3b6e8;
+  --navy-300: #868ad6;
+  --navy-400: #5a5fc0;
+  --navy-500: #4348ab;
+  --navy-600: #363b96;
+  --navy-800: #1e2260;
+  --navy-900: #14173f;
+  /* Neutros */
+  --white: #ffffff;
+  --gray-050: #fbfbfb;
+  --gray-100: #f7f7f7;
+  --gray-200: #e2e2e2;
+  --gray-300: #c7c7c7;
+  --gray-400: #969797;
+  --gray-500: #6c6c6c;
+  --gray-600: #575757;
+  --gray-700: #282728;
+  --gray-800: #171717;
+  --black: #000000;
+  /* Status */
+  --success: #1f9d6b;
+  --success-050: #e6f6ef;
+  --warning: #e0a112;
+  --warning-050: #fdf4e2;
+  --warning-ink: #8a6209;
+  --danger: var(--red-500);
+  --danger-050: var(--red-050);
+  --info: var(--navy-400);
+  --info-050: var(--navy-050);
+  /* Aliases semânticos: prefira estes nos componentes */
+  --text-strong: var(--navy-900);
+  --text-body: var(--gray-700);
+  --text-muted: var(--gray-500);
+  --text-faint: var(--gray-400);
+  --text-on-brand: var(--white);
+  --text-link: var(--navy-700);
+  --text-link-hover: var(--red-500);
+  --surface-page: var(--gray-100);
+  --surface-card: var(--white);
+  --surface-sunken: var(--gray-050);
+  --surface-inverse: var(--navy-900);
+  --surface-brand: var(--navy-700);
+  --surface-accent: var(--red-500);
+  --border-subtle: var(--gray-200);
+  --border-strong: var(--gray-300);
+  --border-brand: var(--navy-700);
+  --focus-ring: var(--navy-400);
+  /* Gradientes */
+  --gradient-brand: linear-gradient(120deg, var(--navy-800) 0%, var(--navy-700) 55%, var(--navy-500) 100%);
+  --gradient-accent: linear-gradient(120deg, var(--red-600) 0%, var(--red-500) 60%, var(--red-300) 100%);
+  --gradient-duo: linear-gradient(120deg, var(--navy-700) 0%, var(--navy-600) 45%, var(--red-500) 100%);
+
+  /*
+   * Paleta de departamentos (RNF-15.6). Derivada das escalas navy/vermelha, neutros e status,
+   * escurecida onde preciso para texto branco passar de 4,5:1. Chaves = DEPARTMENT_COLORS (@hub/shared).
+   */
+  --dept-navy: #2b2f84;
+  --dept-red: #b8171c;
+  --dept-indigo: #5a5fc0;
+  --dept-green: #17794f;
+  --dept-amber: #8a6209;
+  --dept-slate: #575757;
+  --dept-wine: #750f12;
+  --dept-teal: #0e7490;
+
+  /* Tipografia (escala do painel: 30/25/20/18/16/14/12) */
+  --fs-h3: 30px;
+  --fs-h4: 25px;
+  --fs-lead: 20px;
+  --fs-body-lg: 18px;
+  --fs-body: 16px;
+  --fs-button: 15px;
+  --fs-sm: 14px;
+  --fs-xs: 12px;
+  --fs-2xs: 10px;
+  --tracking-label: 0.1em;
+  --tracking-tight: -0.01em;
+
+  /* Espaçamento */
+  --space-1: 5px;
+  --space-2: 10px;
+  --space-3: 15px;
+  --space-4: 20px;
+  --space-5: 30px;
+  --space-6: 50px;
+  --space-7: 100px;
+  --sidebar-w: 248px;
+  --topbar-h: 68px;
+
+  /* Raios (--radius-*), sombras (--shadow-*) e curvas (--ease-*) ficam no @theme de
+     index.css: têm o mesmo nome no Tailwind e no design system, então são definidos uma vez só. */
+  --glass-bg: rgba(255, 255, 255, 0.14);
+
+  /* Movimento */
+  --dur-fast: 120ms;
+  --dur-base: 200ms;
+  --dur-slow: 400ms;
+  --press-scale: 0.97;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --dur-fast: 0ms;
+    --dur-base: 0ms;
+    --dur-slow: 0ms;
+  }
+}
