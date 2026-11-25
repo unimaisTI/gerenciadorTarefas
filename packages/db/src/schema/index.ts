@@ -112,6 +112,8 @@ export const sessions = pgTable(
     lastSeenAt: ts('last_seen_at').notNull().defaultNow(),
     ip: inet('ip'),
     userAgent: text('user_agent'),
+    /** "Visualizar acesso": o admin dono da sessão navega como este usuário, só leitura. */
+    impersonatedUserId: uuid('impersonated_user_id').references(() => users.id, { onDelete: 'set null' }),
     createdAt: ts('created_at').notNull().defaultNow(),
   },
   (t) => [index('sessions_user_idx').on(t.userId)],

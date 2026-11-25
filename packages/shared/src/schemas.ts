@@ -49,6 +49,9 @@ export const loginSchema = z.object({
 
 export const forgotPasswordSchema = z.object({ email: emailSchema });
 
+/** "Visualizar acesso": o admin passa a navegar como este usuário (só leitura). */
+export const accessPreviewSchema = z.object({ userId: uuid });
+
 export const resetPasswordSchema = z.object({
   token: z.string().min(20).max(200),
   password: passwordSchema,

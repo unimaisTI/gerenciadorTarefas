@@ -22,7 +22,8 @@
     "db:generate": "npm run generate -w @hub/db",
     "db:migrate": "npm run migrate -w @hub/db",
     "db:seed": "npm run seed -w @hub/db",
-    "db:check": "npm run check -w @hub/db"
+    "db:check": "npm run check -w @hub/db",
+    "cert:dev": "tsx scripts/dev-cert.ts"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.5",

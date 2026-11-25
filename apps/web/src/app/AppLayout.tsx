@@ -18,6 +18,7 @@ import { Drawer, IconButton, Modal, SidebarNav, TopBar, type SidebarNavItem } fr
 import { SHORTCUTS, useHotkey } from '@/lib/hotkeys';
 import { useAuth } from '@/lib/auth';
 import { useRealtime } from '@/lib/realtime';
+import { AccessPreviewBar } from './AccessPreviewBar';
 import { GlobalSearch } from './GlobalSearch';
 import { NotificationBell } from './NotificationBell';
 import { UserMenu } from './UserMenu';
@@ -91,8 +92,9 @@ export function AppLayout() {
         <SidebarNav items={items} className="h-full w-full" />
       </Drawer>
       <div className="flex min-w-0 flex-1 flex-col">
+        <div className="sticky top-0 z-30">
+        <AccessPreviewBar />
         <TopBar
-          className="sticky top-0 z-30"
           title={
             <span className="flex items-center gap-2.5 lg:hidden">
               <IconButton label="Abrir menu" onClick={() => { setMobileNav(location.pathname); }}>
@@ -114,6 +116,7 @@ export function AppLayout() {
             </>
           }
         />
+        </div>
         <main id="conteudo" className="mx-auto w-full max-w-[1400px] flex-1 p-4 sm:p-5">
           <Outlet />
         </main>

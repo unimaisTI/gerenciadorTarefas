@@ -45,6 +45,17 @@ export interface MeDto {
   role: Role;
   seesAllDepartments: boolean;
   memberships: MembershipDto[];
+  /**
+   * Só em /auth/me durante o "Visualizar acesso": o admin que está vendo o sistema como este
+   * usuário. Nesse modo a sessão é somente leitura.
+   */
+  impersonator?: { id: string; name: string } | null;
+}
+
+/** Formas de entrar disponíveis na tela de login. */
+export interface AuthProvidersDto {
+  /** Endereço que inicia o login com o Google, ou null se não estiver configurado. */
+  googleUrl: string | null;
 }
 
 export interface UserDto extends MeDto {

@@ -9,9 +9,11 @@ import type { Database } from '@hub/db';
 import type { Env } from './env';
 import type { Mailer } from './lib/mailer';
 import type { Realtime } from './lib/realtime';
-import { registerAuth } from './plugins/auth';
+import { originChecker, registerAuth } from './plugins/auth';
 import { errorHandler } from './plugins/errors';
 import { auditRoutes } from './modules/audit/routes';
+import { accessPreviewRoutes } from './modules/auth/access-preview';
+import { googleRoutes } from './modules/auth/google';
 import { authRoutes } from './modules/auth/routes';
 import { calendarRoutes } from './modules/calendar/routes';
 import { commentRoutes } from './modules/comments/routes';
@@ -32,6 +34,8 @@ export interface AppDeps {
   env: Env;
   mailer: Mailer;
   realtime: Pick<Realtime, 'subscribe'>;
+  /** Chamadas HTTP externas (troca do código do Google). Os testes passam uma versão falsa. */
+  fetch?: typeof fetch;
 }
 
 export async function buildApp(deps: AppDeps, options: FastifyServerOptions = {}) {
@@ -48,13 +52,16 @@ export async function buildApp(deps: AppDeps, options: FastifyServerOptions = {}
   app.decorate('env', deps.env);
   app.decorate('mailer', deps.mailer);
   app.decorate('realtime', deps.realtime);
+  app.decorate('httpFetch', deps.fetch ?? globalThis.fetch);
 
   await app.register(cookie);
-  registerAuth(app, new URL(deps.env.APP_URL).origin);
+  registerAuth(app, originChecker(deps.env.APP_URL, deps.env.NODE_ENV));
 
   for (const routes of [
     healthRoutes,
     authRoutes,
+    googleRoutes,
+    accessPreviewRoutes,
     meRoutes,
     userRoutes,
     departmentRoutes,
@@ -83,5 +90,6 @@ declare module 'fastify' {
     env: Env;
     mailer: Mailer;
     realtime: Pick<Realtime, 'subscribe'>;
+    httpFetch: typeof fetch;
   }
 }

@@ -21,6 +21,14 @@ export const ROLE_LABELS: Record<Role, string> = {
   observador: 'Observador',
 };
 
+/** O que cada perfil pode fazer (Administração > Visualizar acesso). */
+export const ROLE_DESCRIPTIONS: Record<Role, string> = {
+  admin: 'Acesso total: usuários, departamentos, auditoria e todos os dados.',
+  gestor: 'Gerencia o próprio departamento: projetos, membros, chamados recebidos e aprovações.',
+  colaborador: 'Trabalha nas tarefas e chamados dos departamentos de que participa.',
+  observador: 'Só consulta: vê quadros e painéis, sem alterar nada.',
+};
+
 export const PRIORITY_LABELS: Record<Priority, string> = {
   low: 'Baixa',
   medium: 'Média',

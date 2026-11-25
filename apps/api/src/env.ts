@@ -5,6 +5,11 @@ const bool = z
   .default('false')
   .transform((v) => v === 'true');
 
+/** Chave vazia no .env ("GOOGLE_CLIENT_ID=") conta como não definida. */
+const blankToUndefined = (v: unknown) => (typeof v === 'string' && v.trim() === '' ? undefined : v);
+const optionalText = z.preprocess(blankToUndefined, z.string().min(1).optional());
+const optionalUrl = z.preprocess(blankToUndefined, z.url().optional());
+
 const envSchema = z.object({
   NODE_ENV: z.enum(['development', 'test', 'production']).default('development'),
   API_HOST: z.string().default('127.0.0.1'),
@@ -30,6 +35,17 @@ const envSchema = z.object({
    * [{"acronym":"TI","host":"imap.unimais.edu.br","port":993,"user":"ti@unimais.edu.br","password":"..."}]
    */
   INBOUND_MAILBOXES: z.string().default('[]'),
+  /**
+   * Login com Google (OAuth do Google Cloud). Sem ID e segredo, o botão não aparece.
+   * O endereço de retorno tem de estar cadastrado no Google exatamente igual; o Google não aceita
+   * IP de rede local (192.168...), só localhost ou um domínio com HTTPS.
+   */
+  GOOGLE_CLIENT_ID: optionalText,
+  GOOGLE_CLIENT_SECRET: optionalText,
+  /** Padrão: APP_URL + /api/auth/google/callback. */
+  GOOGLE_REDIRECT_URI: optionalUrl,
+  /** Domínios aceitos no login com Google, separados por vírgula (ex.: facmais.edu.br). Vazio = qualquer um. */
+  GOOGLE_ALLOWED_DOMAINS: optionalText,
 });
 
 export type Env = z.infer<typeof envSchema>;

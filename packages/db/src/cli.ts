@@ -1,5 +1,6 @@
 import { existsSync } from 'node:fs';
 import { resolve } from 'node:path';
+import { ensureAdmins, parseAdminEmails } from './admins';
 import { runMigrations } from './migrate';
 import { seed } from './seed';
 
@@ -16,6 +17,8 @@ const command = process.argv[2];
 if (command === 'migrate') {
   await runMigrations(url);
   console.log('Migrations aplicadas.');
+  const admins = await ensureAdmins(url, parseAdminEmails(process.env.ADMIN_EMAILS));
+  if (admins.length > 0) console.log(`Administradores gerais garantidos: ${String(admins.length)}.`);
 } else if (command === 'seed') {
   await seed(url);
 } else {

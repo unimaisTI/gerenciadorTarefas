@@ -40,9 +40,10 @@ import { api, errorMessage, qs } from '@/lib/api';
 import { cn } from '@/lib/cn';
 import { keys, useDepartments } from '@/lib/queries';
 import { DEPT_BG, DeptChip, PageHeader } from '@/lib/ui';
+import { AccessPreview } from './AccessPreview';
 import { UsersAdmin } from './UsersAdmin';
 
-type Tab = 'usuarios' | 'departamentos' | 'eventos' | 'auditoria';
+type Tab = 'usuarios' | 'departamentos' | 'eventos' | 'acesso' | 'auditoria';
 
 /** RNF-15.6: o admin escolhe a cor da paleta, nunca um hex livre. */
 function ColorPicker({ value, onChange }: { value: DepartmentColor; onChange: (c: DepartmentColor) => void }) {
@@ -265,7 +266,7 @@ function AuditLog() {
     queryKey: ['audit', page, action],
     queryFn: () => api.get<Paginated<AuditEntryDto>>(`/audit${qs({ page, action })}`),
   });
-  const actions = ['login', 'login_failed', 'user_created', 'user_updated', 'role_changed', 'user_deactivated', 'user_activated', 'password_reset', 'password_changed', 'member_added', 'member_removed', 'department_created'];
+  const actions = ['login', 'login_failed', 'access_preview_started', 'access_preview_stopped', 'user_created', 'user_updated', 'role_changed', 'user_deactivated', 'user_activated', 'password_reset', 'password_changed', 'member_added', 'member_removed', 'department_created'];
   return (
     <Card flush title="Log de auditoria" action={<div className="w-52"><Select aria-label="Ação" placeholder="Todas as ações" value={action} options={actions.map((a) => ({ value: a, label: a }))} onChange={(e) => { setAction(e.target.value); setPage(1); }} /></div>}>
       <div className="pt-[15px]">
@@ -299,7 +300,7 @@ export function AdminPage() {
   const tab = (params.get('aba') as Tab | null) ?? 'usuarios';
   return (
     <div className="flex flex-col gap-5">
-      <PageHeader title="Administração" subtitle="Usuários, departamentos, eventos e auditoria." />
+      <PageHeader title="Administração" subtitle="Usuários, departamentos, eventos, visualização de acesso e auditoria." />
       <Tabs
         label="Administração"
         active={tab}
@@ -310,12 +311,14 @@ export function AdminPage() {
           { id: 'usuarios', label: 'Usuários' },
           { id: 'departamentos', label: 'Departamentos' },
           { id: 'eventos', label: 'Eventos e feriados' },
+          { id: 'acesso', label: 'Visualizar acesso' },
           { id: 'auditoria', label: 'Auditoria' },
         ]}
       />
       {tab === 'usuarios' && <UsersAdmin />}
       {tab === 'departamentos' && <DepartmentsAdmin />}
       {tab === 'eventos' && <EventsManager />}
+      {tab === 'acesso' && <AccessPreview />}
       {tab === 'auditoria' && <AuditLog />}
     </div>
   );

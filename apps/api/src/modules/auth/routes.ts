@@ -77,7 +77,8 @@ export const authRoutes: FastifyPluginAsyncZod = async (app) => {
     const viewer = requireViewer(request);
     const me = await withUser(app.db, viewer.id, (tx) => getUser(tx, viewer.id));
     if (!me) throw new HttpError(401, 'unauthenticated', 'Sua sessão expirou. Entre novamente.');
-    return me;
+    const { impersonator } = request;
+    return { ...me, impersonator: impersonator ? { id: impersonator.id, name: impersonator.name } : null };
   });
 
   // RF-3.4: resposta igual exista ou não o e-mail.

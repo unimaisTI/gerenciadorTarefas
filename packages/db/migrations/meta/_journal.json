@@ -36,6 +36,20 @@
       "when": 1793213086783,
       "tag": "0004_features_security",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1795620076905,
+      "tag": "0005_session_impersonation",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1795620082441,
+      "tag": "0006_google_and_access_preview",
+      "breakpoints": true
     }
   ]
 }
